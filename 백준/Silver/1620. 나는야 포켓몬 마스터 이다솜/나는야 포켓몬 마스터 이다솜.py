@@ -1,12 +1,14 @@
+import sys
+input=sys.stdin.readline
 N,M=map(int,input().split())
 do={}
 z=1
 for _ in range(N):
-    do[z]=input()
+    do[z]=input().rstrip('\n')
     z+=1
 sor=sorted(do.items(),key=lambda x:x[1])
 for _ in range(M):
-    x=input()
+    x=input().rstrip('\n')
     if x.isdigit():
         print(do[int(x)])
     else:
