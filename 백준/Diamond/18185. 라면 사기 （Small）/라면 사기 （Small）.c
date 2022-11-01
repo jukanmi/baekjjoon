@@ -3,21 +3,20 @@
 #include <string.h>
 #include <math.h>
 #define MAX 2147483647
+int min(int a, int b) { return a < b ? a : b; }
 int main() {
-	int N,A,sum=0,stack[2]={0},num=0;
+	int N,A,stack[2]={0},num=0,B,C;
+	int sum=0;
 	scanf("%d",&N);
 	for (int i=0;i<N;i++){
 		scanf("%d",&A);
 		if (A){
-			while (A>0&&stack[1]>0){
-				A--,stack[1]--,num++,sum+=2;
-			}
+			int z=min(A,stack[1]);
+			A-=z,stack[1]-=z,num=z,sum+=2*z;
 			stack[1]=0;
-			while(A>0&&stack[0]>0){
-				A--,stack[0]--,sum+=2;
-			}
+			z=min(A,stack[0]);
+			A-=z,stack[0]-=z,sum+=2*z;
 			stack[0]=num;
-			num=0;
 			stack[1]+=A;
 			sum+=3*A;
 		}
