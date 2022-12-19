@@ -10,7 +10,7 @@ typedef long long ll;
 
 
 int main() {
-	//freopen("input.txt", "r", stdin);
+	FIO
 	int N;
 	cin >> N;
 	vector<int> start(N);
