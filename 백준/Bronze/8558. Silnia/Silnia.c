@@ -1,0 +1,1 @@
+int sum=1;main(a){scanf("%d",&a);while (a){sum*=a--;sum%=10;}printf("%d",sum);}
