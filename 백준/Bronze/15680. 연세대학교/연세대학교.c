@@ -1,0 +1,1 @@
+main(a) {scanf("%d", &a);printf(a?"Leading the Way to the Future":"YONSEI");}
