@@ -15,8 +15,5 @@ int main() {
                 plus[i][j] = maxx(plus[i - 1][j],plus[i][j-1]);
         }
     }
-    int max = 0;
-    for (int i = 1; i <= lenS; i++)
-        max = maxx(plus[lenL][i],max);
-    printf("%d", max);
+    printf("%d", plus[lenL][lenS]);
 }
