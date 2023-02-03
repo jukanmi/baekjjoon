@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
 using namespace std;
 #define FIO ios_base::sync_with_stdio(0);cin.tie(0); cout.tie(0);
@@ -11,14 +10,17 @@ void func(int line, int w) {
     ansA = ansA < w ? w : ansA;
     if (line > 2 * N - 1)
         return;
+    bool flag = true;
     for (int r = 0; r < A[line].size(); r++) {
         if (col[A[line][r].second + N - A[line][r].first]) {
             col[A[line][r].second + N - A[line][r].first] = false;
+            flag = false;
             func(line + 2, w + 1);
             col[A[line][r].second + N - A[line][r].first] = true;
         }
     }
-    func(line + 2, w);
+    if (flag)
+        func(line + 2, w);
 }
 int main() {
     FIO;
