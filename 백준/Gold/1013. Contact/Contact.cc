@@ -1,17 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 string str;
-void automato(int *Case, int c){
-	switch(*Case) {
-		case 0:*Case=c?3:1;break;
-		case 1:*Case=c?2:-1;break;
-		case 2:*Case=c?3:1;break;
-		case 3:*Case=c?-1:4;break;
-		case 4:*Case=c?-1:5;break;
-		case 5:*Case=c?6:5;break;
-		case 6:*Case=c?7:1;break;
-		case 7:*Case=c?7:8;break;
-		case 8:*Case=c?2:5;break;
+int t;
+void automato(int c){
+	switch(t) {
+		case 0:t=c?3:1;break;
+		case 1:t=c?2:-1;break;
+		case 2:t=c?3:1;break;
+		case 3:t=c?-1:4;break;
+		case 4:t=c?-1:5;break;
+		case 5:t=c?6:5;break;
+		case 6:t=c?7:1;break;
+		case 7:t=c?7:8;break;
+		case 8:t=c?2:5;break;
 	}
 }
 int main(){
@@ -20,9 +21,9 @@ int main(){
 	cin >> N;
 	for (int i=0;i<N;i++){
 		cin >> str;
-		int Case=0;
+		t=0;
 		for (char c:str)
-			automato(&Case,c-'0');
-		puts(Case==6||Case==7||Case==2?"YES":"NO");
+			automato(c-'0');
+		puts(t==6||t==7||t==2?"YES":"NO");
 	}
 }
