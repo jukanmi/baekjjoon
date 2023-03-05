@@ -5,7 +5,7 @@ int N, M, K;
 map<int, vector<int>> relate;
 vector<int> candy;
 vector<int> v;
-int dp[30001][3001];
+int dp[3001];
 void dfs(int N, int color) {
     v[N] = color;
     for (int s : relate[N]) {
@@ -40,12 +40,9 @@ int main() {
         group[v[i]].second += candy[i];
     }
     for (int i = 1; i < color; i++) {
-        for (int j = 0; j < K; j++) {
-            if (j >= group[i].first)
-                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - group[i].first] + group[i].second);
-            else
-                dp[i][j] = dp[i - 1][j];
+        for (int j = K-1; j >=group[i].first; j--) {
+            dp[j] = max(dp[j], dp[j - group[i].first] + group[i].second);
         }
     }
-    cout << dp[color - 1][K-1] << "\n";
+    cout << dp[K-1] << "\n";
 }
