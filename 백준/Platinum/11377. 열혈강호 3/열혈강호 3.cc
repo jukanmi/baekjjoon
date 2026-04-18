@@ -10,15 +10,14 @@ const int MAXN = 1e4 + 4;
 bool match[MAXN];  // 매칭 상태
 int matched[MAXN]; // 매칭된 상대
 bool worked[MAXN]; // 해당 상대가 이미 매칭되었는지
-vi edges[MAXN];
 int N, M, K;
 
-bool dfs(int node) {
+bool dfs(int node, vector<vi> &edges) {
   if (match[node])
     return 0;
   match[node] = 1;
   for (auto &edge : edges[node]) {
-    if (!matched[edge] || dfs(matched[edge])) {
+    if (!matched[edge] || dfs(matched[edge], edges)) {
       matched[edge] = node;
       return 1;
     }
@@ -30,6 +29,7 @@ int main() {
   FIO;
   //freopen("input.txt", "r", stdin);
   cin >> N >> M >> K;
+  vector<vi> edges(N + 1, vi());
   for (int i = 1; i <= N; i++) {
     int tmp;
     cin >> tmp;
@@ -42,13 +42,13 @@ int main() {
   int ans = 0;
   for (int i = 1; i <= N; i++) {
     fill(match, match + MAXN, 0);
-    if (dfs(i)) {
+    if (dfs(i, edges)) {
       ans++;
     }
   }
   for (int i = 1; i <= N && K > 0; i++) {
     fill(match, match + MAXN, 0);
-    if (dfs(i)) {
+    if (dfs(i, edges)) {
       ans++, K--;
     }
   }
