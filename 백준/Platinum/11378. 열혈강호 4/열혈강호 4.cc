@@ -9,9 +9,9 @@ using vi = vector<int>;
 const int MAXN = 1e4 + 4;
 bool match[MAXN];  // 매칭 상태
 int matched[MAXN]; // 매칭된 상대
-bool worked[MAXN]; // 해당 상대가 이미 매칭되었는지
 vi edges[MAXN];
-int N, M, K;
+bool CanDoing[MAXN];
+int N, M, K, Cando;
 
 bool dfs(int node) {
   for (auto &edge : edges[node]) {
@@ -25,10 +25,17 @@ bool dfs(int node) {
   }
   return 0;
 }
-
-int main() {
-  FIO;
-  //freopen("input.txt", "r", stdin);
+int solveA() {
+  int ans = 0;
+  for (int i = 1; i <= N; i++) {
+    fill(match, match + MAXN, 0);
+    if (dfs(i)) {
+      ans++;
+    }
+  }
+  return min(ans + K, Cando);
+}
+void init() {
   cin >> N >> M >> K;
   for (int i = 1; i <= N; i++) {
     int tmp;
@@ -36,10 +43,17 @@ int main() {
     while (tmp--) {
       int c;
       cin >> c;
+      if (!CanDoing[c]) {
+        CanDoing[c] = 1;
+        Cando++;
+      }
       edges[i].push_back(c);
     }
   }
+}
+int solveB() {
   int ans = 0;
+  fill_n(matched, MAXN, 0);
   for (int i = 1; i <= N; i++) {
     fill(match, match + MAXN, 0);
     if (dfs(i)) {
@@ -53,6 +67,11 @@ int main() {
       ans++, k++;
     }
   }
-  cout << ans;
+  return ans;
+}
+int main() {
+  FIO;
+  init();
+  cout << solveB() << endl;
   return 0;
 }
