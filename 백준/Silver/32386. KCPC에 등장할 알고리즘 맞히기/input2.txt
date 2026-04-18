@@ -1,0 +1,7 @@
+6
+30701 2 greedy sorting
+30702 4 bfs dfs graphs graph_traversal
+30705 2 data_structures disjoint_set
+30706 2 geometry math
+30707 4 constructive graphs greedy mst
+30708 2 ad_hoc constructive
