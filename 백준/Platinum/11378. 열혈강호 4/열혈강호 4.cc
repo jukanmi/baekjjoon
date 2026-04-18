@@ -11,7 +11,7 @@ bool match[MAXN];  // 매칭 상태
 int matched[MAXN]; // 매칭된 상대
 vi edges[MAXN];
 bool CanDoing[MAXN];
-int N, M, K, Cando;
+int N, M, K;
 
 bool dfs(int node) {
   for (auto &edge : edges[node]) {
@@ -25,53 +25,32 @@ bool dfs(int node) {
   }
   return 0;
 }
-int solveA() {
-  int ans = 0;
-  for (int i = 1; i <= N; i++) {
-    fill(match, match + MAXN, 0);
-    if (dfs(i)) {
-      ans++;
-    }
-  }
-  return min(ans + K, Cando);
-}
-void init() {
+
+int main() {
+  FIO;
+  //freopen("input.txt", "r", stdin);
   cin >> N >> M >> K;
+  int Cando=0;
   for (int i = 1; i <= N; i++) {
     int tmp;
     cin >> tmp;
     while (tmp--) {
       int c;
       cin >> c;
-      if (!CanDoing[c]) {
+      if (!CanDoing[c]){
         CanDoing[c] = 1;
         Cando++;
       }
       edges[i].push_back(c);
     }
   }
-}
-int solveB() {
   int ans = 0;
-  fill_n(matched, MAXN, 0);
   for (int i = 1; i <= N; i++) {
     fill(match, match + MAXN, 0);
     if (dfs(i)) {
       ans++;
     }
   }
-  int k = 0;
-  for (int i = 1; i <= N && k < K; i++) {
-    while (k < K && dfs(i)) {
-      fill(match, match + MAXN, 0);
-      ans++, k++;
-    }
-  }
-  return ans;
-}
-int main() {
-  FIO;
-  init();
-  cout << solveB() << endl;
+  cout << min(ans+K,Cando);
   return 0;
 }
