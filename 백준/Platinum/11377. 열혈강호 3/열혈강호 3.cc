@@ -7,9 +7,8 @@ using vi = vector<int>;
   cout.tie(0);
 #define all(x) x.begin(), x.end()
 const int MAXN = 1e4 + 4;
-bool match[MAXN];  // 매칭 상태
-int matched[MAXN]; // 매칭된 상대
-bool worked[MAXN]; // 해당 상대가 이미 매칭되었는지
+bool match[MAXN];
+int matched[MAXN];
 int N, M, K;
 
 bool dfs(int node, vector<vi> &edges) {
@@ -24,11 +23,9 @@ bool dfs(int node, vector<vi> &edges) {
   }
   return 0;
 }
-bool rm(int v) { return worked[v]; }
 
 int main() {
   FIO;
-  //freopen("input.txt", "r", stdin);
   cin >> N >> M >> K;
   vector<vi> edges(N + 1, vi());
   for (int i = 1; i <= N; i++) {
@@ -47,13 +44,14 @@ int main() {
       ans++;
     }
   }
-  int add=0;
-  for (int i = 1; i <= N; i++){
+
+  for (int i = 1; i <= N && K>0; i++){
     fill_n(match,MAXN,0);
     if (dfs(i, edges)) {
-      add++;
+      ans++;
+      K--;
     }
   }
-  cout << ans + min(add,K);
+  cout << ans;
   return 0;
 }
