@@ -9,13 +9,14 @@ using vi = vector<int>;
 const int MAXN = 1e4 + 4;
 bool match[MAXN];  // 매칭 상태
 int matched[MAXN]; // 매칭된 상대
+bool worked[MAXN]; // 해당 상대가 이미 매칭되었는지
 int N, M, K;
 
 bool dfs(int node, vector<vi> &edges) {
-  if (match[node])
-    return 0;
-  match[node] = 1;
   for (auto &edge : edges[node]) {
+    if (match[edge])
+      continue;
+    match[edge] = 1;
     if (!matched[edge] || dfs(matched[edge], edges)) {
       matched[edge] = node;
       return 1;
@@ -23,6 +24,7 @@ bool dfs(int node, vector<vi> &edges) {
   }
   return 0;
 }
+bool rm(int v) { return worked[v]; }
 
 int main() {
   FIO;
@@ -45,12 +47,13 @@ int main() {
       ans++;
     }
   }
-  for (int i = 1; i <= N && K > 0; i++) {
-    fill_n(match, MAXN, 0);
+  int add=0;
+  for (int i = 1; i <= N; i++){
+    fill_n(match,MAXN,0);
     if (dfs(i, edges)) {
-      ans++, K--;
+      add++;
     }
   }
-  cout << ans;
+  cout << ans + min(add,K);
   return 0;
 }
